@@ -1,0 +1,3 @@
+﻿  main.cpp
+I:\Games\MyGames\sfmltest\main.cpp(18,18): warning C4101: kb: неиспользованная локальная переменная
+  sfmltest.vcxproj -> I:\Games\MyGames\sfmltest\x64\Debug\sfmltest.exe
