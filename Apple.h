@@ -7,14 +7,15 @@ namespace snake
 	{
 	public:
 		Apple();
-		Apple(const sf::Vector2f& position, unsigned int cellSize);
-		void SetCellSize(unsigned int cellSize);
+		Apple(const sf::Vector2f& position);
 		void SetPosition(const sf::Vector2f& position);
 		sf::Vector2f GetPosition();
 
 	private:
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		bool LoadSprite(const std::string& filePath);
 
-		sf::CircleShape m_appleShape;
+		sf::Texture m_texture;
+		sf::Sprite m_sprite;
 	};
 }

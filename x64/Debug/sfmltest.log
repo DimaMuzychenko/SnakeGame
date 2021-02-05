@@ -1,3 +1,7 @@
-﻿  main.cpp
-I:\Games\MyGames\sfmltest\main.cpp(18,18): warning C4101: kb: неиспользованная локальная переменная
-  sfmltest.vcxproj -> I:\Games\MyGames\sfmltest\x64\Debug\sfmltest.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: промежуточный каталог (x64\Debug\) содержит файлы, которые используются совместно с другим проектом (sfmltest.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  Snake.cpp
+I:\Games\MyGames\Snake!\Snake.cpp(154,4): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  main.cpp
+I:\Games\MyGames\Snake!\main.cpp(18,18): warning C4101: kb: неиспользованная локальная переменная
+  Создание кода...
+  sfmltest.vcxproj -> I:\Games\MyGames\Snake!\x64\Debug\SnakeGame.exe

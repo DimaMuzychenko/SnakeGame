@@ -1,39 +1,55 @@
 #include "Apple.h"
 #include <SFML/Graphics.hpp>
+#include "GameConfig.h"
+#include <iostream>
+
+const sf::IntRect APPLE_RECT = {0 * SPRITE_SIZE, 3 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE};
 
 namespace snake
 {
 	Apple::Apple()
 	{
-		m_appleShape.setFillColor(sf::Color::Red);
+		if (!LoadSprite(SPRITESHEET_PATH))
+		{
+			std::cout << "No spritesheet found!" << std::endl;
+		}
 	}
 
-	Apple::Apple(const sf::Vector2f& position, unsigned int cellSize)
+	Apple::Apple(const sf::Vector2f& position)
 	{
-		SetCellSize(cellSize);
-		m_appleShape.setFillColor(sf::Color::Red);
+		if (!LoadSprite(SPRITESHEET_PATH))
+		{
+			std::cout << "No spritesheet found!" << std::endl;
+		}	
 		SetPosition(position);
 	}
 
-	void Apple::SetCellSize(unsigned int cellSize)
+	bool Apple::LoadSprite(const std::string& filePath)
 	{
-		float radius = cellSize / 2 * 0.8;
-		m_appleShape.setRadius(radius);
-		m_appleShape.setOrigin(radius, radius);
+		if (!m_texture.loadFromFile(filePath))
+		{
+			return false;
+		}
+		m_sprite.setTexture(m_texture);
+		m_sprite.setTextureRect(APPLE_RECT);
+		m_sprite.setOrigin(SPRITE_SIZE / 2, SPRITE_SIZE / 2);
+		m_sprite.setScale((float)CELL_SIZE / (float)SPRITE_SIZE, (float)CELL_SIZE / (float)SPRITE_SIZE);
+		return true;
 	}
 
 	void Apple::SetPosition(const sf::Vector2f& position)
 	{
-		m_appleShape.setPosition((sf::Vector2f)position);
+		m_sprite.setPosition((sf::Vector2f)position);
 	}
 
 	sf::Vector2f Apple::GetPosition()
 	{
-		return m_appleShape.getPosition();
+		return m_sprite.getPosition();
 	}
 
 	void Apple::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		target.draw(m_appleShape, states);
+		states.texture = &m_texture;
+		target.draw(m_sprite, states);
 	}
 }

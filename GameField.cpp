@@ -13,9 +13,6 @@ namespace snake
 		InitCells(xFieldSize, yFieldSize);		
 		zeroCellPosition.x = borderThickness + cellSize / 2.f;
 		zeroCellPosition.y = statusBarHight + borderThickness + cellSize / 2.f;
-		apple.SetCellSize(cellSize);
-		RespawnApple();
-		
 	}
 
 	void GameField::InitBorder(unsigned int xFieldSize, unsigned int yFieldSize,
@@ -46,59 +43,87 @@ namespace snake
 
 	void GameField::OccupyCell(sf::Vector2f position)
 	{
-		float m = position.x / cellSize;
-		float n = position.y / cellSize;
-		if (m - trunc(m) == 0.5f && n - trunc(n) == 0.5f)
+		std::pair<std::size_t, std::size_t> index;
+		index = GetCellIndex(position);
+		occupiedCells[index.second][index.first] = true;
+	}
+
+	void GameField::OccupyCell(const std::vector<sf::Vector2f>& positions)
+	{
+		std::pair<std::size_t, std::size_t> index;
+		for (const auto& position : positions)
 		{
-			occupiedCells[trunc(n)][trunc(m)] = true;
+			index = GetCellIndex(position);
+			occupiedCells[index.second][index.first] = true;
 		}
-		else
-		{
-			std::string msg = "No cell with coordinates x = " + std::to_string(position.x) + ", y = " + std::to_string(position.y);
-			throw std::exception(msg.c_str());
-		}
+	}
+
+	sf::Vector2f GameField::GetStartPosition()
+	{
+		std::size_t xIndex = occupiedCells[0].size() / 2;
+		std::size_t yIndex = occupiedCells.size() / 2;
+		return GetCellPosition(xIndex, yIndex);
 	}
 
 	void GameField::FreeCell(sf::Vector2f position)
 	{
-		float m = position.x / cellSize;
-		float n = position.y / cellSize;
-		if (m - trunc(m) == 0.5f && n - trunc(n) == 0.5f)
+		std::pair<std::size_t, std::size_t> index;
+		index = GetCellIndex(position);
+		occupiedCells[index.second][index.first] = false;
+	}
+
+	void GameField::FreeCell(const std::vector<sf::Vector2f>& positions)
+	{
+		std::pair<std::size_t, std::size_t> index;
+		for (const auto& position : positions)
 		{
-			occupiedCells[trunc(n)][trunc(m)] = false;
+			index = GetCellIndex(position);
+			occupiedCells[index.second][index.first] = false;
 		}
-		else
+	}
+
+	bool GameField::IsCellExists(sf::Vector2f position)
+	{
+		std::pair<size_t, size_t> index;
+		try
 		{
-			std::string msg = "No cell with coordinates x = " + std::to_string(position.x) + ", y = " + std::to_string(position.y);
-			throw std::exception(msg.c_str());
+			index = GetCellIndex(position);
 		}
+		catch (std::exception& ex)
+		{
+			return false;
+		}
+		return true;
 	}
 
 	bool GameField::IsOccupied(sf::Vector2f position)
 	{
-		float m = position.x / cellSize;
-		float n = position.y / cellSize;
-		if (m - trunc(m) == 0.5f && n - trunc(n) == 0.5f)
-		{
-			return occupiedCells[trunc(n)][trunc(m)];
-		}
-		else
-		{
-			std::string msg = "No cell with coordinates x = " + std::to_string(position.x) + ", y = " + std::to_string(position.y);
-			throw std::exception(msg.c_str());
-		}
+		std::pair<size_t, size_t> index = GetCellIndex(position);		
+		return occupiedCells[index.second][index.first];
 	}
 
 	sf::Vector2f GameField::GetCellPosition(size_t x, size_t y)
 	{
+		if (x > occupiedCells[0].size() || y > occupiedCells.size())
+		{
+			throw std::exception("Cell's index is not correct!");
+		}
 		return sf::Vector2f(zeroCellPosition.x + x * cellSize, zeroCellPosition.y + y * cellSize);
 	}
 
 	std::pair<size_t, size_t> GameField::GetCellIndex(sf::Vector2f position)
 	{
 		std::pair<size_t, size_t> index;
-		index.first = trunc(position.x / cellSize);
-		index.second = trunc(position.y / cellSize);
+		position.x -= zeroCellPosition.x;
+		position.y -= zeroCellPosition.y;
+		float x = position.x / cellSize;
+		float y = position.y / cellSize;
+		if (x - trunc(x) != 0.f || y - trunc(y) != 0.f)
+		{
+			throw std::exception("Cell's position is not correct!");
+		}
+		index.first = (std::size_t) x;
+		index.second = (std::size_t) y;
 		return index;
 	}
 
@@ -121,20 +146,13 @@ namespace snake
 	sf::Vector2f GameField::GetRandomFreeCell()
 	{
 		std::vector<sf::Vector2f> freeCells = GetFreeCells();
-		rand();
 		unsigned int r = rand();
 		sf::Vector2f randomCell = freeCells[freeCells.size() * r / RAND_MAX];
 		return randomCell;
-	}
-
-	void GameField::RespawnApple()
-	{
-		apple.SetPosition(GetRandomFreeCell());
-	}
+	}	
 
 	void GameField::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(border, states);
-		target.draw(apple, states);
 	}
 }

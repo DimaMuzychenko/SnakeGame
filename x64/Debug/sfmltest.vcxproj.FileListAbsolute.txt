@@ -1,2 +1,4 @@
 I:\Games\MyGames\sfmltest\x64\Debug\sfmltest.exe
 I:\Games\MyGames\sfmltest\x64\Debug\sfmltest.pdb
+I:\Games\MyGames\Snake!\x64\Debug\SnakeGame.exe
+I:\Games\MyGames\Snake!\x64\Debug\SnakeGame.pdb
