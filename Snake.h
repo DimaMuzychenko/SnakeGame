@@ -16,15 +16,17 @@ namespace snake
 		void MoveBodyParts();
 		sf::Vector2f GetDirectionVector();
 		sf::Vector2f GetNextCell();
+		sf::Vector2f GetHeadPosition();
 		void AddBodyPart();
+		std::int8_t GetDirection();
+
+	private:
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		bool LoadSprites(const std::string& filePath);
 		void UpdateSprites();
 		void UpdateHeadSprite();
 		void UpdateBodySprite(std::size_t index);
 		void UpdateTailSprite();
-
-	private:
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-		bool LoadSprites(const std::string& filePath);		
 
 		sf::Texture m_texture;
 		std::int8_t m_direction;;

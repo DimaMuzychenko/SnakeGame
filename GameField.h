@@ -32,7 +32,8 @@ namespace snake
 		void InitCells(unsigned int xFieldSize, unsigned int yFieldSize);
 
 		unsigned int cellSize;
-		sf::Vector2f zeroCellPosition;
+		sf::Vector2f m_firstCellPosition;
+		sf::Vector2f m_lastCellPosition;
 		std::vector<std::vector<bool>> occupiedCells;
 		sf::RectangleShape border;
 	};

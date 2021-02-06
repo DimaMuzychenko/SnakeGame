@@ -11,8 +11,10 @@ namespace snake
 		this->cellSize = cellSize;
 		InitBorder(xFieldSize, yFieldSize, borderThickness, statusBarHight);
 		InitCells(xFieldSize, yFieldSize);		
-		zeroCellPosition.x = borderThickness + cellSize / 2.f;
-		zeroCellPosition.y = statusBarHight + borderThickness + cellSize / 2.f;
+		m_firstCellPosition.x = borderThickness + cellSize / 2.f;
+		m_firstCellPosition.y = statusBarHight + borderThickness + cellSize / 2.f;
+		m_lastCellPosition.x = borderThickness + xFieldSize * cellSize - cellSize / 2.f;
+		m_lastCellPosition.y = statusBarHight + borderThickness + yFieldSize * cellSize - cellSize / 2.f;
 	}
 
 	void GameField::InitBorder(unsigned int xFieldSize, unsigned int yFieldSize,
@@ -108,23 +110,30 @@ namespace snake
 		{
 			throw std::exception("Cell's index is not correct!");
 		}
-		return sf::Vector2f(zeroCellPosition.x + x * cellSize, zeroCellPosition.y + y * cellSize);
+		return sf::Vector2f(m_firstCellPosition.x + x * cellSize, m_firstCellPosition.y + y * cellSize);
 	}
 
 	std::pair<size_t, size_t> GameField::GetCellIndex(sf::Vector2f position)
 	{
 		std::pair<size_t, size_t> index;
-		position.x -= zeroCellPosition.x;
-		position.y -= zeroCellPosition.y;
-		float x = position.x / cellSize;
-		float y = position.y / cellSize;
-		if (x - trunc(x) != 0.f || y - trunc(y) != 0.f)
+
+		if (position.x >= m_firstCellPosition.x && position.y >= m_firstCellPosition.y)
 		{
-			throw std::exception("Cell's position is not correct!");
+			if (position.x <= m_lastCellPosition.x && position.y <= m_lastCellPosition.y)
+			{
+				position.x -= m_firstCellPosition.x;
+				position.y -= m_firstCellPosition.y;
+				float x = position.x / cellSize;
+				float y = position.y / cellSize;
+				if ((x - trunc(x) == 0.f && y - trunc(y) == 0.f))
+				{
+					index.first = (std::size_t)x;
+					index.second = (std::size_t)y;
+					return index;
+				}				
+			}
 		}
-		index.first = (std::size_t) x;
-		index.second = (std::size_t) y;
-		return index;
+		throw std::exception("Cell's position is not correct!");
 	}
 
 	std::vector<sf::Vector2f> GameField::GetFreeCells()

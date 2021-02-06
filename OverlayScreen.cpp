@@ -2,37 +2,43 @@
 
 namespace snake
 {
-	OverlayScreen::OverlayScreen(std::string text)
+	OverlayScreen::OverlayScreen(std::string text, sf::Color bgColor)
 	{
-		InitBG();
+		InitBG(bgColor);
 		InitText(text);
-		IsEnable = false;
+		m_isEnable = true;
 	}
 
-	OverlayScreen::OverlayScreen(std::string text, sf::Vector2f textPosition)
+	OverlayScreen::OverlayScreen(std::string text, sf::Vector2f textPosition, sf::Color bgColor)
 	{
-		InitBG();
+		InitBG(bgColor);
 		InitText(text);
 		m_text.setPosition(textPosition);
-		IsEnable = false;
+		m_bg.setFillColor(bgColor);
+		m_isEnable = true;
 	}
 
-	void SetEnable(bool value)
+	void OverlayScreen::SetEnable(bool value)
 	{
-
+		m_isEnable = value;
 	}
 
-	void OverlayScreen::InitBG()
+	bool OverlayScreen::IsEnable()
 	{
-		m_bg.setSize({ X_WINDOW_SIZE, Y_FIELD_SIZE });
-		m_bg.setFillColor(sf::Color(255, 255, 255, 100));
+		return m_isEnable;
+	}
+
+	void OverlayScreen::InitBG(sf::Color bgColor)
+	{
+		m_bg.setSize({X_WINDOW_SIZE, Y_WINDOW_SIZE });
+		m_bg.setFillColor(bgColor);
 		m_bg.setOrigin({ X_WINDOW_SIZE / 2, Y_WINDOW_SIZE / 2 });
 		m_bg.setPosition({ X_WINDOW_SIZE / 2, Y_WINDOW_SIZE / 2 });
 	}
 
 	void OverlayScreen::InitText(std::string text)
 	{
-		m_text.setColor(sf::Color::White);
+		m_text.setFillColor(sf::Color::White);
 		m_text.setPosition({ X_WINDOW_SIZE / 2, Y_WINDOW_SIZE / 2 });
 		SetText(text);
 	}

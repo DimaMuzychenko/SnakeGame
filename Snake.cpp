@@ -120,6 +120,11 @@ namespace snake
 		}
 	}
 
+	std::int8_t Snake::GetDirection()
+	{
+		return m_direction;
+	}
+
 	sf::Vector2f Snake::GetDirectionVector()
 	{
 		sf::Vector2f directionVector(0, 0);
@@ -143,7 +148,34 @@ namespace snake
 
 	sf::Vector2f Snake::GetNextCell()
 	{
-		sf::Vector2f nextPosition = m_bodyParts[0].getPosition() + GetDirectionVector();
+		sf::Vector2f nextPosition;
+		sf::Vector2f headPosition = m_bodyParts[0].getPosition();
+		for (int i = 0; i < 4; i++)
+		{
+			if (m_bodyParts[0].GetSprite().getTextureRect() == PART_RECTS[i])
+			{
+				switch (i)
+				{
+				case 0:
+					nextPosition.x = headPosition.x;
+					nextPosition.y = headPosition.y - CELL_SIZE;
+					break;
+				case 1:
+					nextPosition.x = headPosition.x + CELL_SIZE;
+					nextPosition.y = headPosition.y;
+					break;
+				case 2:
+					nextPosition.x = headPosition.x - CELL_SIZE;
+					nextPosition.y = headPosition.y;
+					break;
+				case 3:
+					nextPosition.x = headPosition.x;
+					nextPosition.y = headPosition.y + CELL_SIZE;
+					break;
+				}
+				break;
+			}
+		}
 		return nextPosition;
 	}
 
@@ -268,6 +300,11 @@ namespace snake
 
 			}
 		}
+	}
+
+	sf::Vector2f Snake::GetHeadPosition()
+	{
+		return m_bodyParts[0].getPosition();
 	}
 
 

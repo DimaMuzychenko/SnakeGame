@@ -8,11 +8,11 @@ namespace snake
 {
 	bool CollisionManager::AppleCollision(snake::Snake& snake, snake::Apple& apple)
 	{
-		return snake.GetNextCell() == apple.GetPosition();
+		return (snake.GetHeadPosition() == apple.GetPosition()) || (snake.GetNextCell() == apple.GetPosition());
 	}
 	bool CollisionManager::BorderCollision(snake::Snake& snake, snake::GameField& gf)
 	{
-		return gf.IsCellExists(snake.GetNextCell());
+		return !gf.IsCellExists(snake.GetNextCell());
 	}
 	bool CollisionManager::SnakeCollision(snake::Snake& snake)
 	{
