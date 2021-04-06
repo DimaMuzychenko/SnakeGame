@@ -1,0 +1,20 @@
+﻿  Apple.cpp
+  CollisionManager.cpp
+  Game.cpp
+  GameField.cpp
+I:\Games\MyGames\Snake!\GameField.cpp(10,18): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+I:\Games\MyGames\Snake!\GameField.cpp(23,15): warning C4244: 'initializing': conversion from 'unsigned int' to 'float', possible loss of data
+I:\Games\MyGames\Snake!\GameField.cpp(24,15): warning C4244: 'initializing': conversion from 'unsigned int' to 'float', possible loss of data
+I:\Games\MyGames\Snake!\GameField.cpp(94,26): warning C4101: 'ex': unreferenced local variable
+  OverlayScreen.cpp
+  main.cpp
+  Snake.cpp
+I:\Games\MyGames\Snake!\Snake.cpp(186,4): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  SnakePart.cpp
+I:\Games\MyGames\Snake!\SnakePart.cpp(22,48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+I:\Games\MyGames\Snake!\SnakePart.cpp(22,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 599 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  sfmltest.vcxproj -> I:\Games\MyGames\Snake!\x64\Release\SnakeGame.exe

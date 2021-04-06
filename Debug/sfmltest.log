@@ -1,0 +1,18 @@
+﻿  Apple.cpp
+  CollisionManager.cpp
+  Game.cpp
+  GameField.cpp
+I:\Games\MyGames\Snake!\GameField.cpp(10,18): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+I:\Games\MyGames\Snake!\GameField.cpp(23,15): warning C4244: инициализация: преобразование "unsigned int" в "float", возможна потеря данных
+I:\Games\MyGames\Snake!\GameField.cpp(24,15): warning C4244: инициализация: преобразование "unsigned int" в "float", возможна потеря данных
+I:\Games\MyGames\Snake!\GameField.cpp(94,26): warning C4101: ex: неиспользованная локальная переменная
+I:\Games\MyGames\Snake!\GameField.cpp(142,21): warning C4018: <: несоответствие типов со знаком и без знака
+I:\Games\MyGames\Snake!\GameField.cpp(144,22): warning C4018: <: несоответствие типов со знаком и без знака
+  OverlayScreen.cpp
+  main.cpp
+  Snake.cpp
+  SnakePart.cpp
+I:\Games\MyGames\Snake!\SnakePart.cpp(22,48): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+I:\Games\MyGames\Snake!\SnakePart.cpp(22,32): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  Создание кода...
+sfml-graphics-s-d.lib(RenderStates.cpp.obj) : fatal error LNK1112: тип компьютера модуля "x64" конфликтует с типом целевого компьютера "x86"

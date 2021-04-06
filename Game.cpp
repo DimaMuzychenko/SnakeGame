@@ -19,8 +19,8 @@ namespace snake
 		apple = new Apple(gf->GetRandomFreeCell());
 
         gameObjects.push_back(&(*gf));
-        gameObjects.push_back(&(*snake));
         gameObjects.push_back(&(*apple));
+        gameObjects.push_back(&(*snake));
 	}
 
     void Game::Pause()
@@ -166,9 +166,7 @@ namespace snake
                     {
                         GameOver();
                     }
-                }
-
-                snake->MoveBodyParts();
+                }                
 
                 if (cm.AppleCollision(*snake, *apple))
                 {
@@ -179,6 +177,7 @@ namespace snake
                 {
                     GameOver();
                 }
+                snake->MoveBodyParts();
             }          
 
             UpdateScene();
